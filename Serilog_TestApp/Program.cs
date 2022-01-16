@@ -26,7 +26,7 @@ namespace TestApp
 
             try
             {
-                Log.Information("Application starting up");
+                Log.Debug("Application starting up");
 
                 Parser.Default.ParseArguments<SingleCommand, MultipleCommand>(args)
                     .WithParsed<SingleCommand>(t => t.Execute())
@@ -35,11 +35,11 @@ namespace TestApp
             }
             catch (Exception ex)
             {
-                Log.Information("Application failed to start correctly. Exception trace: {exception}", ex);
+                Log.Fatal("Application failed to start correctly. Exception trace: {Exception}", ex);
             }
             finally
             {
-                Log.Information("Application shutting down");
+                Log.Debug("Application shutting down");
             }
         }
 
@@ -50,17 +50,17 @@ namespace TestApp
                 var appName = AppDomain.CurrentDomain.FriendlyName;
                 var appVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
-                Log.Information("Version request from: {AppName} actual application Version: {Version}", appName, appVersion);
+                Log.Verbose("Version request from: {AppName} actual application Version: {Version}", appName, appVersion);
                 return;
             }
 
             if (errs.IsHelp())
             {
-                Log.Information("Help Request");
+                Log.Verbose("Help Request");
                 return;
             }
 
-            Log.Error("Parser could not parse arguments correctly, Exception: {exception}", errs.GetEnumerator().ToString());
+            Log.Error("Parser could not parse arguments correctly, Exception: {Exception}", errs.GetEnumerator().ToString());
         }
     }
 }

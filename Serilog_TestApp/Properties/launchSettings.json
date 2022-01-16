@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Serilog_TestApp_Version": {
+      "commandName": "Project",
+      "commandLineArgs": "--version"
+    },
+    "Serilog_TestApp_Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    },
+    "Serilog_TestApp_Single_NoOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "single"
+    },
+    "Serilog_TestApp_Single_LogLevel": {
+      "commandName": "Project",
+      "commandLineArgs": "single -l 5"
+    }
+  }
+}
