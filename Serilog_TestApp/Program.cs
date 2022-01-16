@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using TestApp.Commands;
+using TestApp.Enrichers;
 
 namespace TestApp
 {
@@ -22,6 +24,7 @@ namespace TestApp
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
                 .Enrich.FromLogContext()
+                .Enrich.With(new ProcessAndThreadEnricher())
                 .CreateLogger();
 
             try
@@ -40,6 +43,7 @@ namespace TestApp
             finally
             {
                 Log.Debug("Application shutting down");
+                Log.CloseAndFlush();
             }
         }
 

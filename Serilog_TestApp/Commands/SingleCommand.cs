@@ -22,9 +22,7 @@ namespace TestApp.Commands
 
         public void Execute()
         {
-            Log.Logger.Debug("Application Starting with Command {Command}", GetType().Name);
-
-            Log.Logger.Debug("Choosen log level: {LogLevel}", _logLevel);
+            Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
 
             switch (_logLevel)
             {

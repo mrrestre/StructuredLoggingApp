@@ -8,13 +8,31 @@
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
+
     "Serilog_TestApp_Single_NoOptions": {
       "commandName": "Project",
       "commandLineArgs": "single"
     },
+    "Serilog_TestApp_Single_Help": {
+      "commandName": "Project",
+      "commandLineArgs": "single --help"
+    },
     "Serilog_TestApp_Single_LogLevel": {
       "commandName": "Project",
       "commandLineArgs": "single -l 5"
+    },
+
+    "Serilog_TestApp_Multiple_NoOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "multiple"
+    },
+    "Serilog_TestApp_Multiple_Help": {
+      "commandName": "Project",
+      "commandLineArgs": "multiple --help"
+    },
+    "Serilog_TestApp_Multiple_AllOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "multiple -n 10 -t 1 -r"
     }
   }
 }
