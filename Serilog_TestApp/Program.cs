@@ -1,12 +1,12 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using Serilog_TestApp.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using TestApp.Commands;
 using TestApp.Enrichers;
 
@@ -30,23 +30,11 @@ namespace TestApp
             try
             {
                 Log.Debug("Application starting up");
-
-                /*
-                Task runParser = new Task(() =>
-                {
-                    Parser.Default.ParseArguments<SingleCommand, MultipleCommand>(args)
-                    .WithParsed<SingleCommand>(t => t.Execute())
-                    .WithParsed<MultipleCommand>(t => t.Execute())
-                    .WithNotParsed(HandleParseError);
-                });
-                runParser.RunSynchronously();
-                runParser.Wait();
-                */
-
                 
-                Parser.Default.ParseArguments<SingleCommand, MultipleCommand>(args)
+                Parser.Default.ParseArguments<SingleCommand, MultipleCommand, AlgoCommand>(args)
                     .WithParsed<SingleCommand>(t => t.Execute())
                     .WithParsed<MultipleCommand>(t => t.Execute())
+                    .WithParsed<AlgoCommand>(t => t.Execute())
                     .WithNotParsed(HandleParseError);
                 
             }

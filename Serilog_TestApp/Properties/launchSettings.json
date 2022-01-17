@@ -41,6 +41,19 @@
     "Serilog_TestApp_Multiple_Test3": {
       "commandName": "Project",
       "commandLineArgs": "multiple -n 100000 -k 3"
+    },
+
+    "Serilog_TestApp_Algo_NoOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "algo"
+    },
+    "Serilog_TestApp_Algo_Help": {
+      "commandName": "Project",
+      "commandLineArgs": "algo --help"
+    },
+    "Serilog_TestApp_Algo_WithOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "algo -v 5825639485202051 -p 9"
     }
   }
 }

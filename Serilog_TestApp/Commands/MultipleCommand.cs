@@ -6,7 +6,7 @@ using System.Timers;
 
 namespace TestApp.Commands
 {
-    [Verb("multiple", HelpText = "Generate periodic logs and send the to the defined Sinks")]
+    [Verb("multiple", HelpText = "Generate multiple logs and send the to the defined Sinks")]
     public class MultipleCommand
     {
         [Option('n', "number", 
@@ -88,9 +88,13 @@ namespace TestApp.Commands
 
             while (sw.Elapsed.TotalMilliseconds < howLong)
             {
-                Log.Logger.Information("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
+                Log.Logger.Verbose("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
                 counter++;
             }
+
+            Log.Logger.Information("Managed to send {NumberOfMessages} in {Time} seconds", counter, howLong);
+
+            sw.Stop();
         }
 
         private static void SendLogs_TimeForMessages(int howMany)
@@ -100,7 +104,7 @@ namespace TestApp.Commands
 
             for (int i = 0; i <= howMany; i++)
             {
-                Log.Logger.Information("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
+                Log.Logger.Verbose("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
             }
 
             Log.Logger.Information("It took {Time} miliseconds to send {NumberOfMessages} messages", sw.ElapsedMilliseconds, howMany);
