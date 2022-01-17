@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using Serilog;
-using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -21,54 +21,98 @@ namespace TestApp.Commands
             HelpText = "Defines the time for the Log-Events to be generated")]
         public int _time { get; set; }
 
-        [Option('r', "random",
+        [Option('k', "kind",
+            Default = (E_TestKinds)1,
             Required = false,
-            Default = false,
-            HelpText = "If this option is activated, the level of the Log-Event is randomly generated")]
-        public bool _random { get; set; }
+            HelpText = "Defines how the messages should be sent\n" +
+                        "1 --> A Test where messages are sent with a calculated interval for a given time\n" +
+                        "2 --> A Test where the maximal quantity of messages in a given time are produced\n" +
+                        "3 --> A Test where an amount of messages is sent and the time it took is registered\n")]
+        public E_TestKinds _testKind { get; set; }
+
 
         public void Execute()
         {
             Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
-
-            var howLongBetweenLogs = (_time * 1000) / _number;
-            var howLong = _time * 1000 + howLongBetweenLogs;
-
-            /*
-            Task sendLogs = new Task(() => SendLogs(howLongBetweenLogs, howLong));
-            sendLogs.RunSynchronously();
-            sendLogs.Wait();
-            */
             
-            SendLogs(howLongBetweenLogs, howLong);
+            var howLong = _time * 1000;
+
+            switch (_testKind)
+            {
+                case E_TestKinds.TimerVariant:
+                    var howLongBetweenLogs = (_time * 1000) / _number;
+                    
+                    var intervallTimer = new Timer(howLongBetweenLogs);
+                    var taskDelay = SendLogs_TimerVariant(howLong, intervallTimer);
+
+                    Task.WaitAll(taskDelay);
+
+                    intervallTimer.Stop();
+                    intervallTimer.Dispose();
+                    break;
+
+                case E_TestKinds.MaxMessagesInTime:
+                    SendLogs_MaxMessagesInTime(howLong);
+                    break;
+
+                case E_TestKinds.TimeForMessages:
+                    SendLogs_TimeForMessages(_number);
+                    break;
+
+            }
         }
 
-        private static void SendLogs(int howLongBetweenLogs, int howLong)
+        private async Task SendLogs_TimerVariant(int howLong, Timer intervallTimer)
         {
-            var totalTimeToRun = new Timer(howLong);
-            var intervallTime = new Timer(howLongBetweenLogs);
+            int counter = 1;
 
-            totalTimeToRun.Enabled = true;
-            totalTimeToRun.Elapsed += (s, e) =>
+            intervallTimer.AutoReset = true;
+            intervallTimer.Enabled = true;
+
+            intervallTimer.Elapsed += (s, e) =>
             {
-                intervallTime.Stop();
-                totalTimeToRun.Stop();
-
-                intervallTime.Dispose();
-                totalTimeToRun.Dispose();
+                Log.Logger.Information("Testing the multiple command. Currently writting message: {MessageNumber} from {HowMany}", counter, _number);
+                counter++;
             };
 
-            intervallTime.AutoReset = true;
-            intervallTime.Enabled = true;
-            intervallTime.Elapsed += (s, e) =>
+            intervallTimer.Start();
+
+            await Task.Delay(howLong);
+        }
+
+        private static void SendLogs_MaxMessagesInTime(int howLong)
+        {
+            int counter = 1;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            while (sw.Elapsed.TotalMilliseconds < howLong)
             {
-                Log.Logger.Information("Writting something {Time}", e.SignalTime);
-            };
+                Log.Logger.Information("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
+                counter++;
+            }
+        }
 
-            totalTimeToRun.Start();
-            intervallTime.Start();
+        private static void SendLogs_TimeForMessages(int howMany)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
-            Console.ReadLine();
+            for (int i = 0; i <= howMany; i++)
+            {
+                Log.Logger.Information("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
+            }
+
+            Log.Logger.Information("It took {Time} miliseconds to send {NumberOfMessages} messages", sw.ElapsedMilliseconds, howMany);
+
+            sw.Stop();
         }
     }
+
+    public enum E_TestKinds
+    {
+        TimerVariant        = 1,
+        MaxMessagesInTime   = 2,
+        TimeForMessages     = 3
+    };
 }

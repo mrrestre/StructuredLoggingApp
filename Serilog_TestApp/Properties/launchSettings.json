@@ -30,9 +30,17 @@
       "commandName": "Project",
       "commandLineArgs": "multiple --help"
     },
-    "Serilog_TestApp_Multiple_AllOptions": {
+    "Serilog_TestApp_Multiple_Test1": {
       "commandName": "Project",
-      "commandLineArgs": "multiple -n 10 -t 1 -r"
+      "commandLineArgs": "multiple -n 10 -t 1 -k 1"
+    },
+    "Serilog_TestApp_Multiple_Test2": {
+      "commandName": "Project",
+      "commandLineArgs": "multiple -t 1 -k 2"
+    },
+    "Serilog_TestApp_Multiple_Test3": {
+      "commandName": "Project",
+      "commandLineArgs": "multiple -n 100000 -k 3"
     }
   }
 }

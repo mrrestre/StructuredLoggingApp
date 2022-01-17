@@ -31,10 +31,24 @@ namespace TestApp
             {
                 Log.Debug("Application starting up");
 
+                /*
+                Task runParser = new Task(() =>
+                {
+                    Parser.Default.ParseArguments<SingleCommand, MultipleCommand>(args)
+                    .WithParsed<SingleCommand>(t => t.Execute())
+                    .WithParsed<MultipleCommand>(t => t.Execute())
+                    .WithNotParsed(HandleParseError);
+                });
+                runParser.RunSynchronously();
+                runParser.Wait();
+                */
+
+                
                 Parser.Default.ParseArguments<SingleCommand, MultipleCommand>(args)
                     .WithParsed<SingleCommand>(t => t.Execute())
                     .WithParsed<MultipleCommand>(t => t.Execute())
                     .WithNotParsed(HandleParseError);
+                
             }
             catch (Exception ex)
             {

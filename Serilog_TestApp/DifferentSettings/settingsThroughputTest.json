@@ -9,14 +9,6 @@
       }
     },
     "WriteTo": [
-      { "Name": "Console" },
-      {
-        "Name": "File",
-        "Args": {
-          "path": "C:\\Temp\\TestDocuments\\log.json",
-          "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
-        }
-      },
       {
         "Name": "Async",
         "Args": {
@@ -25,7 +17,10 @@
               "Name": "File",
               "Args": {
                 "path": "C:\\Temp\\TestDocuments\\async-log.json",
-                "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+                "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog",
+                "buffered": true,
+                "flushToDiskIntervall": "TimeSpan.FromMilliseconds(1000)",
+                "blockWhenFull": true
               }
             }
           ]
