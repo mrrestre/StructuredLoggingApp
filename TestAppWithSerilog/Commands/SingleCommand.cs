@@ -1,8 +1,8 @@
 ﻿using CommandLine;
 using Serilog;
-using Serilog_TestApp.Helpers;
+using TestAppWithSerilog.Helpers;
 
-namespace TestApp.Commands
+namespace TestAppWithSerilog.Commands
 {
     [Verb("single", HelpText = "Create a single log and send it to defined Sinks")]
     public class SingleCommand
@@ -17,14 +17,14 @@ namespace TestApp.Commands
                         "4 --> Warning\n" +
                         "5 --> Error\n" +
                         "6 --> Fatal\n")]
-        public E_LogLevels _logLevel { get; set; }
+        public E_LogLevels LogLevel { get; set; }
 
 
         public void Execute()
         {
             Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
 
-            switch (_logLevel)
+            switch (LogLevel)
             {
                 case E_LogLevels.Verbose:
                     Log.Logger.Verbose(LogLevelDefinition.log_levels["Verbose"]);

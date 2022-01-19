@@ -1,57 +1,57 @@
 {
   "profiles": {
-    "Serilog_TestApp_Version": {
+    "TestAppWithSerilog_Version": {
       "commandName": "Project",
       "commandLineArgs": "--version"
     },
-    "Serilog_TestApp_Help": {
+    "TestAppWithSerilog_Help": {
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
 
-    "Serilog_TestApp_Single_NoOptions": {
+    "TestAppWithSerilog_Single_NoOptions": {
       "commandName": "Project",
       "commandLineArgs": "single"
     },
-    "Serilog_TestApp_Single_Help": {
+    "TestAppWithSerilog_Single_Help": {
       "commandName": "Project",
       "commandLineArgs": "single --help"
     },
-    "Serilog_TestApp_Single_LogLevel": {
+    "TestAppWithSerilog_Single_LogLevel": {
       "commandName": "Project",
       "commandLineArgs": "single -l 5"
     },
 
-    "Serilog_TestApp_Multiple_NoOptions": {
+    "TestAppWithSerilog_Multiple_NoOptions": {
       "commandName": "Project",
       "commandLineArgs": "multiple"
     },
-    "Serilog_TestApp_Multiple_Help": {
+    "TestAppWithSerilog_Multiple_Help": {
       "commandName": "Project",
       "commandLineArgs": "multiple --help"
     },
-    "Serilog_TestApp_Multiple_Test1": {
+    "TestAppWithSerilog_Multiple_Test1": {
       "commandName": "Project",
       "commandLineArgs": "multiple -n 10 -t 1 -k 1"
     },
-    "Serilog_TestApp_Multiple_Test2": {
+    "TestAppWithSerilog_Multiple_Test2": {
       "commandName": "Project",
       "commandLineArgs": "multiple -t 1 -k 2"
     },
-    "Serilog_TestApp_Multiple_Test3": {
+    "TestAppWithSerilog_Multiple_Test3": {
       "commandName": "Project",
-      "commandLineArgs": "multiple -n 100000 -k 3"
+      "commandLineArgs": "multiple -n 10000 -k 3"
     },
 
-    "Serilog_TestApp_Algo_NoOptions": {
+    "TestAppWithSerilog_Algo_NoOptions": {
       "commandName": "Project",
       "commandLineArgs": "algo"
     },
-    "Serilog_TestApp_Algo_Help": {
+    "TestAppWithSerilog_Algo_Help": {
       "commandName": "Project",
       "commandLineArgs": "algo --help"
     },
-    "Serilog_TestApp_Algo_WithOptions": {
+    "TestAppWithSerilog_Algo_WithOptions": {
       "commandName": "Project",
       "commandLineArgs": "algo -v 5825639485202051 -p 9"
     }

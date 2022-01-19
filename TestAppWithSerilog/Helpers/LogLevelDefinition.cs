@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Serilog_TestApp.Helpers
+namespace TestAppWithSerilog.Helpers
 {
     static class LogLevelDefinition
     {

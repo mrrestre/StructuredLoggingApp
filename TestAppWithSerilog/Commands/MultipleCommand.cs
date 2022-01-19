@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace TestApp.Commands
+namespace TestAppWithSerilog.Commands
 {
     [Verb("multiple", HelpText = "Generate multiple logs and send the to the defined Sinks")]
     public class MultipleCommand
@@ -13,13 +13,13 @@ namespace TestApp.Commands
             Required = false, 
             Default = 10,
             HelpText = "Defines the number of Log-Events to be generated")]
-        public int _number { get; set; }
+        public int Number { get; set; }
 
         [Option('t', "time", 
             Required = false,
             Default = 1,
             HelpText = "Defines the time for the Log-Events to be generated")]
-        public int _time { get; set; }
+        public int Time { get; set; }
 
         [Option('k', "kind",
             Default = (E_TestKinds)1,
@@ -28,19 +28,19 @@ namespace TestApp.Commands
                         "1 --> A Test where messages are sent with a calculated interval for a given time\n" +
                         "2 --> A Test where the maximal quantity of messages in a given time are produced\n" +
                         "3 --> A Test where an amount of messages is sent and the time it took is registered\n")]
-        public E_TestKinds _testKind { get; set; }
+        public E_TestKinds TestKind { get; set; }
 
 
         public void Execute()
         {
             Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
             
-            var howLong = _time * 1000;
+            var howLong = Time * 1000;
 
-            switch (_testKind)
+            switch (TestKind)
             {
                 case E_TestKinds.TimerVariant:
-                    var howLongBetweenLogs = (_time * 1000) / _number;
+                    var howLongBetweenLogs = (Time * 1000) / Number;
                     
                     var intervallTimer = new Timer(howLongBetweenLogs);
                     var taskDelay = SendLogs_TimerVariant(howLong, intervallTimer);
@@ -56,7 +56,7 @@ namespace TestApp.Commands
                     break;
 
                 case E_TestKinds.TimeForMessages:
-                    SendLogs_TimeForMessages(_number);
+                    SendLogs_TimeForMessages(Number);
                     break;
 
             }
@@ -71,7 +71,7 @@ namespace TestApp.Commands
 
             intervallTimer.Elapsed += (s, e) =>
             {
-                Log.Logger.Information("Testing the multiple command. Currently writting message: {MessageNumber} from {HowMany}", counter, _number);
+                Log.Logger.Information("Testing the multiple command. Currently writting message: {MessageNumber} from {HowMany}", counter, Number);
                 counter++;
             };
 
@@ -82,27 +82,27 @@ namespace TestApp.Commands
 
         private static void SendLogs_MaxMessagesInTime(int howLong)
         {
-            int counter = 1;
-            Stopwatch sw = new Stopwatch();
+            int counter = 0;
+            Stopwatch sw = new();
             sw.Start();
 
             while (sw.Elapsed.TotalMilliseconds < howLong)
             {
-                Log.Logger.Verbose("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
                 counter++;
+                Log.Logger.Verbose("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
             }
 
-            Log.Logger.Information("Managed to send {NumberOfMessages} in {Time} seconds", counter, howLong);
+            Log.Logger.Information("Managed to send {NumberOfMessages} messages in {Time} milliseconds", counter, howLong);
 
             sw.Stop();
         }
 
         private static void SendLogs_TimeForMessages(int howMany)
         {
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new();
             sw.Start();
 
-            for (int i = 0; i <= howMany; i++)
+            for (int i = 0; i < howMany; i++)
             {
                 Log.Logger.Verbose("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
             }

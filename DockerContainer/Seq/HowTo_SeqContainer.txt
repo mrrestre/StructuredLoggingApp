@@ -1,0 +1,4 @@
+docker run --name seq -d --restart unless-stopped -e ACCEPT_EULA=Y -p 5341:80 datalust/seq:latest
+
+:80 	UI Port as well as ingestion and API Requests
+:5341	Port for ingestion ONLY

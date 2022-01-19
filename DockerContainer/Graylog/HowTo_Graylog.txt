@@ -1,0 +1,13 @@
+Steps:
+
+1) Open terminal on this folder
+2) run command "docker-compose up -d"
+3) Check that in 3 Docker Containers are running (Elasticsearch, Graylog and MongoDB)
+4) Go to the "http://localhost:9000"
+5) user:password --> admin:admin
+6) Go to system > inputs
+7) Add input "GELF" UDP
+8) Be sure the Port is set to 12201
+9) Be sure that "Graylog" is the sinks defined in appsettings.json
+10) New messages from the app should be there
+

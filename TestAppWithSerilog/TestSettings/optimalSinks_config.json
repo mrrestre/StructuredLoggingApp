@@ -1,0 +1,50 @@
+{
+  "Serilog": {
+    "Using": [],
+    "MinimumLevel": {
+      "Default": "Verbose",
+      "Override": {
+        "Microsoft": "Warning",
+        "System": "Warning"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "restrictedToMinimumLevel": "Debug"
+        }
+      },
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "File",
+              "Args": {
+                "restrictedToMinimumLevel": "Verbose",
+                "path": "C:\\Temp\\TestDocuments\\log.json",
+                "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Name": "Seq",
+        "Args": {
+          "serverUrl": "http://localhost:5341",
+          "restrictedToMinimumLevel": "Verbose"
+        }
+      },
+      {
+        "Name": "Graylog",
+        "Args": {
+          "hostnameOrAddress": "localhost",
+          "port": "12201",
+          "transportType": "Udp"
+        }
+      }
+    ]
+  }
+}

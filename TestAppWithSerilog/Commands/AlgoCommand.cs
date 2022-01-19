@@ -3,10 +3,10 @@ using Serilog;
 using System;
 using System.Diagnostics;
 
-namespace Serilog_TestApp.Commands
+namespace TestAppWithSerilog.Commands
 {
     [Verb("algo", HelpText = "Run an iterative algorithm (Square Root Calculation) with and without logging to compare the needed time")]
-    class AlgoCommand
+    public class AlgoCommand
     {
         private const int maximumLoops = 100000;
 
@@ -14,43 +14,48 @@ namespace Serilog_TestApp.Commands
             Required = false,
             Default = (double)4133,             //Prime number to make the calculation a little harder
             HelpText = "The value from which the square root should be calculated")]
-        public double _value { get; set; }
+        public double Value { get; set; }
 
         [Option('p', "precision",
             Required = false,
             Default = 5,
             HelpText = "Defines how many precise the answer is going to be. If the precision is high, the calculation may take long\n" +
                         "Example: 2 --> Precision = 0.01")]
-        public double _precision { get; set; }
+        public double Precision { get; set; }
 
         public void Execute()
         {
-            _precision = Math.Pow(10, -(_precision));
+            Precision = CalculatePrecision(Precision);
             Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
-            
+
             RunAlgorithm(true);
             RunAlgorithm(false);
         }
 
+        public static double CalculatePrecision(double exponent)
+        {
+            return Math.Pow(10, -(exponent));
+        }
+
         private void RunAlgorithm(bool loggingEnabled)
         {
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new();
             sw.Start();
 
             int counter = 1;
 
             double low = 0;
-            double high = _value;
+            double high = Value;
             double mid = 0;
 
-            while ((high - low) > _precision)
+            while ((high - low) > Precision)
             {
                 mid = (double)((low + high) / 2);
-                if ((mid - _precision) >= mid * mid && mid * mid <= (_precision + mid))
+                if ((mid - Precision) >= mid * mid && mid * mid <= (Precision + mid))
                 {
                     break;
                 }
-                else if (mid * mid < _value)
+                else if (mid * mid < Value)
                 {
                     low = mid;
                 }

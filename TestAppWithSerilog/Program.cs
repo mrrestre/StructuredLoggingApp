@@ -1,16 +1,16 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog_TestApp.Commands;
+using Serilog.Sinks.Graylog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using TestApp.Commands;
-using TestApp.Enrichers;
+using TestAppWithSerilog.Commands;
+using TestAppWithSerilog.Enrichers;
 
-namespace TestApp
+namespace TestAppWithSerilog
 {
     class Program
     {
@@ -23,8 +23,9 @@ namespace TestApp
 
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
-                .Enrich.FromLogContext()
                 .Enrich.With(new ProcessAndThreadEnricher())
+                .Enrich.With(new UserEnricher())
+                
                 .CreateLogger();
 
             try

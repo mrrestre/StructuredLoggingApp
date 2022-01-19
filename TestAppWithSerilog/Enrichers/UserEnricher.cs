@@ -1,18 +1,18 @@
 ﻿using Serilog.Core;
 using Serilog.Events;
-using System.Threading;
+using System;
 
-namespace TestApp.Enrichers
+namespace TestAppWithSerilog.Enrichers
 {
-    class ProcessAndThreadEnricher : ILogEventEnricher
+    class UserEnricher : ILogEventEnricher
     {
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(
-                "ProcessId", System.Diagnostics.Process.GetCurrentProcess().Id));
+                "UserName", value: Environment.UserName));
 
             logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty(
-                "ThreadId", Thread.CurrentThread.ManagedThreadId));
+                "UserDomainName", value: Environment.UserDomainName));
         }
     }
 }
