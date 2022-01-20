@@ -1,36 +1,27 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using TestAppWithSerilog.Commands;
 
-namespace TestAppWithSerilog.Tests.SingleCommandTests
+namespace TestAppWithSerilog.Tests.Commands.Tests
 {
     [TestClass]
     public class SingleCommandTests
     {
-        static readonly SingleCommand _testSingleCommand = new()
+        private SingleCommand _testSingleCommand = new()
         {
             LogLevel = E_LogLevels.Information
         };
 
-        [AssemblyInitialize]
-        public static void ConfigureGlobalLogger()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.TestCorrelator()
-                .CreateLogger();
-        }
-
         [TestMethod]
-        public void ByCallingExecuteFunction_ExactlyTwoLogs_AreGenerated()
+        public void ByCallingExecuteFunction_ExactlyOneLog_IsGenerated()
         {
             using (TestCorrelator.CreateContext())
             {
                 _testSingleCommand.Execute();
 
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(2);
+                    .Should().ContainSingle();
             }
         }
 
@@ -46,14 +37,6 @@ namespace TestAppWithSerilog.Tests.SingleCommandTests
                 TestCorrelator.GetLogEventsFromCurrentContext()
                     .Should().BeEmpty();
             }
-        }
-
-        [TestMethod]
-        public void AStupidTest()
-        {
-            var value = 2;
-
-            Assert.Equals(value, 2);
         }
     }
 }

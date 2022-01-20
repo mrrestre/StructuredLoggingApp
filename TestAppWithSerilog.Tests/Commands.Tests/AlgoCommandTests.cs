@@ -1,22 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
 using Serilog.Sinks.TestCorrelator;
+using System;
 using TestAppWithSerilog.Commands;
 
-namespace TestAppWithSerilog.Tests.AlgoCommandTests
+namespace TestAppWithSerilog.Tests.Commands.Tests
 {
     [TestClass]
-    class AlgoCommandTests
+    public class AlgoCommandTests
     {
-        static readonly AlgoCommand algoCommand = new();
-
-        [AssemblyInitialize]
-        public static void ConfigureGlobalLogger()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.TestCorrelator()
-                .CreateLogger();
-        }
+        private AlgoCommand algoCommand = new();
 
         [TestMethod]
         public void PrecisionIsCalculatedRight()
@@ -25,7 +19,35 @@ namespace TestAppWithSerilog.Tests.AlgoCommandTests
 
             double precision = AlgoCommand.CalculatePrecision(exponent);
 
-            Assert.Equals(precision, 1E-05);
+            Assert.AreEqual(precision, 1E-05);
         }
+
+        [TestMethod]
+        public void ResultOfTheCalculationIsReliable()
+        {
+            algoCommand.Value = 25;
+            algoCommand.Precision = AlgoCommand.CalculatePrecision(5);
+
+            var result = algoCommand.RunAlgorithm(false);
+
+            Assert.AreEqual(result, 5);
+        }
+
+        [TestMethod]
+        public void WithAQuadraticNumber_ExactlyOneIterationIsNeeded_AndOneMessageLogGenerated()
+        {
+            algoCommand.Value = 49;
+            algoCommand.Precision = AlgoCommand.CalculatePrecision(5);
+
+            using (TestCorrelator.CreateContext())
+            {
+                algoCommand.RunAlgorithm(true);
+
+                TestCorrelator.GetLogEventsFromCurrentContext()
+                    .Should().HaveCount(1);
+            }
+        }
+
+        
     }
 }

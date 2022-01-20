@@ -37,7 +37,7 @@ namespace TestAppWithSerilog.Commands
             return Math.Pow(10, -(exponent));
         }
 
-        private void RunAlgorithm(bool loggingEnabled)
+        public double RunAlgorithm(bool loggingEnabled)
         {
             Stopwatch sw = new();
             sw.Start();
@@ -88,6 +88,8 @@ namespace TestAppWithSerilog.Commands
             }
 
             sw.Stop();
+
+            return Math.Round(mid, 3);
         }
     }
 }

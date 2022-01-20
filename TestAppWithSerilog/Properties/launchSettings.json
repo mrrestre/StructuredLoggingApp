@@ -51,6 +51,10 @@
       "commandName": "Project",
       "commandLineArgs": "algo --help"
     },
+    "TestAppWithSerilog_Algo_WithEasyOptions": {
+      "commandName": "Project",
+      "commandLineArgs": "algo -v 49 -p 9"
+    },
     "TestAppWithSerilog_Algo_WithOptions": {
       "commandName": "Project",
       "commandLineArgs": "algo -v 5825639485202051 -p 9"
