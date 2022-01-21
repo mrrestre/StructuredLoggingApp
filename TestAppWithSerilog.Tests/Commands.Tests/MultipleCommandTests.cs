@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog.Sinks.TestCorrelator;
-using System.Timers;
 using TestAppWithSerilog.Commands;
 
 namespace TestAppWithSerilog.Tests.Commands.Tests
@@ -16,7 +15,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
-                multipleCommand.TestKind = (E_TestKinds)4;
+                multipleCommand.testKind = (E_TestKinds)4;
 
                 multipleCommand.Execute();
 
@@ -31,15 +30,15 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
-                multipleCommand.Number = 30;
-                multipleCommand.Time = 1;
+                multipleCommand.number = 30;
+                multipleCommand.time = 1;
 
-                var howLong = multipleCommand.Time * 1000;
+                var howLong = multipleCommand.time * 1000;
 
                 multipleCommand.CallSendLogs_TimerVariant(howLong);
 
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(multipleCommand.Number);
+                    .Should().HaveCount(multipleCommand.number);
             }
         }
 

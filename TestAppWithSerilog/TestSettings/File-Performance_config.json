@@ -16,7 +16,7 @@
             {
               "Name": "File",
               "Args": {
-                "path": "C:\\Temp\\TestDocuments\\async-log.json",
+                "path": "C:\\Temp\\TestDocuments\\Serilog\\async-log.json",
                 "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog",
                 "buffered": true,
                 "flushToDiskInterval": "TimeSpan.FromMilliseconds(1000)",

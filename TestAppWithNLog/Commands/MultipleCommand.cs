@@ -1,15 +1,17 @@
 ﻿using CommandLine;
-using Serilog;
+using NLog;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace TestAppWithSerilog.Commands
+namespace TestAppWithNLog.Commands
 {
     [Verb("multiple", HelpText = "Generate multiple logs and send the to the defined Sinks")]
     public class MultipleCommand
     {
+        private static ILogger logger = LogManager.GetLogger(typeof(MultipleCommand).FullName);
+
         [Option('n', "number", 
             Required = false, 
             Default = 10,
@@ -36,7 +38,7 @@ namespace TestAppWithSerilog.Commands
         {
             if (Enum.IsDefined(typeof(E_TestKinds), testKind))
             {
-                Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
+                logger.Debug("Choosen configurations: {@Configurations}", this);
 
                 var howLong = time * 1000;
 
@@ -58,7 +60,7 @@ namespace TestAppWithSerilog.Commands
             }
             else
             {
-                Log.Logger.Error("Kind of test not Valid. Exception: {Exception}", new Exception("Kind of Test not defined"));
+                logger.Error(new Exception("Kind of Test not defined"), "Kind of test not Valid. Exception: {Exception}");
             }
         }
 
@@ -84,7 +86,7 @@ namespace TestAppWithSerilog.Commands
 
             intervallTimer.Elapsed += (s, e) =>
             {
-                Log.Logger.Information("Testing the multiple command. Currently writting message: {MessageNumber} from {HowMany}", counter, number);
+                logger.Info("Testing the multiple command. Currently writting message: {MessageNumber} from {HowMany}", counter, number);
                 counter++;
             };
 
@@ -102,10 +104,10 @@ namespace TestAppWithSerilog.Commands
             while (sw.Elapsed.TotalMilliseconds < howLong)
             {
                 counter++;
-                Log.Logger.Verbose("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
+                logger.Trace("Testing the maximum posible Logs in {HowLong} second(s). Currently writting message: {MessageNumber}", ( howLong/1000 ), counter);
             }
 
-            Log.Logger.Information("Managed to send {NumberOfMessages} messages in {Time} milliseconds", counter, howLong);
+            logger.Info("Managed to send {NumberOfMessages} messages in {Time} milliseconds", counter, howLong);
 
             sw.Stop();
 
@@ -119,10 +121,10 @@ namespace TestAppWithSerilog.Commands
 
             for (int i = 0; i < howMany; i++)
             {
-                Log.Logger.Verbose("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
+                logger.Trace("Current message: {CurrentMessage}, current taken time: {CurrentTime}", i, sw.ElapsedMilliseconds);
             }
 
-            Log.Logger.Information("It took {Time} miliseconds to send {NumberOfMessages} messages", sw.ElapsedMilliseconds, howMany);
+            logger.Info("It took {Time} miliseconds to send {NumberOfMessages} messages", sw.ElapsedMilliseconds, howMany);
 
             sw.Stop();
         }

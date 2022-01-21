@@ -16,20 +16,19 @@ namespace TestAppWithSerilog
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(builder.Build())
-                .Enrich.With(new ProcessAndThreadEnricher())
-                .Enrich.With(new UserEnricher())
-                
-                .CreateLogger();
-
             try
             {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddEnvironmentVariables();
+
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Build())
+                    .Enrich.With(new ProcessAndThreadEnricher())
+                    .Enrich.With(new UserEnricher())
+                    .CreateLogger();
+
                 Log.Debug("Application starting up");
                 
                 Parser.Default.ParseArguments<SingleCommand, MultipleCommand, AlgoCommand>(args)

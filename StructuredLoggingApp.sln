@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWithSerilog", "TestA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWithSerilog.Tests", "TestAppWithSerilog.Tests\TestAppWithSerilog.Tests.csproj", "{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppWithNLog", "TestAppWithNLog\TestAppWithNLog.csproj", "{E2BAE49D-9430-4201-AA9E-B59FF87F939F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NLog", "NLog", "{6599F3AD-90D2-45F3-BFFB-ACBD8C1D9B77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serilog", "Serilog", "{26A6CF6A-3997-40D1-B20A-8314E34584E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,18 @@ Global
 		{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2BAE49D-9430-4201-AA9E-B59FF87F939F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2BAE49D-9430-4201-AA9E-B59FF87F939F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2BAE49D-9430-4201-AA9E-B59FF87F939F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2BAE49D-9430-4201-AA9E-B59FF87F939F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA75ECE9-A990-49FC-B4CD-E73B75619406} = {26A6CF6A-3997-40D1-B20A-8314E34584E9}
+		{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161} = {26A6CF6A-3997-40D1-B20A-8314E34584E9}
+		{E2BAE49D-9430-4201-AA9E-B59FF87F939F} = {6599F3AD-90D2-45F3-BFFB-ACBD8C1D9B77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1867B32C-677B-4C6C-A950-9B271FFD270C}

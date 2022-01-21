@@ -1,13 +1,15 @@
 ﻿using CommandLine;
-using Serilog;
+using NLog;
 using System;
 using System.Diagnostics;
 
-namespace TestAppWithSerilog.Commands
+namespace TestAppWithNLog.Commands
 {
     [Verb("algo", HelpText = "Run an iterative algorithm (Square Root Calculation) with and without logging to compare the needed time")]
     public class AlgoCommand
     {
+        private static ILogger logger = LogManager.GetLogger(typeof(AlgoCommand).FullName);
+
         public const int maximumLoops = 100000;
 
         [Option('v', "value",
@@ -26,7 +28,7 @@ namespace TestAppWithSerilog.Commands
         public void Execute()
         {
             precision = CalculatePrecision(precision);
-            Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
+            logger.Debug("Choosen configurations: {@Configurations}", this);
 
             RunAlgorithm(true);
             RunAlgorithm(false);
@@ -67,7 +69,7 @@ namespace TestAppWithSerilog.Commands
 
                 if (loggingEnabled)
                 {
-                    Log.Logger.Verbose("Algorith running, currently on iteration: {Iteration}", counter);
+                    logger.Trace("Algorith running, currently on iteration: {Iteration}", counter);
                 }
 
 
@@ -82,11 +84,11 @@ namespace TestAppWithSerilog.Commands
 
             if (loggingEnabled)
             {
-                Log.Logger.Information("Algorithm with Logging calculated in {Seconds}, Answer: {Answer}", sw.Elapsed, mid);
+                logger.Info("Algorithm with Logging calculated in {Seconds}, Answer: {Answer}", sw.Elapsed, mid);
             }
             else
             {
-                Log.Logger.Information("Algorithm without Logging calculated in {Seconds}, Answer: {Answer}", sw.Elapsed, mid);
+                logger.Info("Algorithm without Logging calculated in {Seconds}, Answer: {Answer}", sw.Elapsed, mid);
             }
 
             sw.Stop();

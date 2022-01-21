@@ -31,7 +31,7 @@
               "Name": "File",
               "Args": {
                 "restrictedToMinimumLevel": "Verbose",
-                "path": "C:\\Temp\\TestDocuments\\async-log.json",
+                "path": "C:\\Temp\\TestDocuments\\Serilog\\async-log.json",
                 "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
               }
             }

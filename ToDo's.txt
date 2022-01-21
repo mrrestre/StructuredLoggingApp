@@ -1,0 +1,18 @@
+TODOs:
+
+SerilogApp:
+	- Add Comments to Methods and classes (is something like JavaDoc possible?)
+	- (Maybe) Play with sinks to find a better performance
+
+NLogApp:
+	- Make the right description of the level on helpers
+	- Add Comments to Methods and classes (is something like JavaDoc possible?)
+	- Create UnitTest for project
+	- Perfomance async to file
+	- Messages sent to Seq
+	- Messages sent to Graylog
+	- Messages sent to Elastic
+	- (Maybe) Play with sinks to find a better performance
+	
+Others:
+	- Get used to the different Log-Server

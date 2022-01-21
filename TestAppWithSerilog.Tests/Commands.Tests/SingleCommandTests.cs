@@ -10,7 +10,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
     {
         private readonly SingleCommand _testSingleCommand = new()
         {
-            LogLevel = E_LogLevels.Information
+            logLevel = E_LogLevels.Information
         };
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
-                _testSingleCommand.LogLevel = (E_LogLevels)7;
+                _testSingleCommand.logLevel = (E_LogLevels)7;
 
                 _testSingleCommand.Execute();
 

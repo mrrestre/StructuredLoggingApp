@@ -1,13 +1,15 @@
 ﻿using CommandLine;
-using Serilog;
+using NLog;
 using System;
-using TestAppWithSerilog.Helpers;
+using TestAppWithNLog.Helpers;
 
-namespace TestAppWithSerilog.Commands
+namespace TestAppWithNLog.Commands
 {
     [Verb("single", HelpText = "Create a single log and send it to defined Sinks")]
     public class SingleCommand
     {
+        private static ILogger logger = LogManager.GetLogger(typeof(SingleCommand).FullName);
+
         [Option('l', "level", 
             Default = (E_LogLevels)3, 
             Required = false, 
@@ -25,32 +27,32 @@ namespace TestAppWithSerilog.Commands
         {
             if(Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
-                Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
+                logger.Debug("Choosen configurations: {@Configurations}", this);
 
                 switch (logLevel)
                 {
-                    case E_LogLevels.Verbose:
-                        Log.Logger.Verbose(LogLevelDefinition.log_levels["Verbose"]);
+                    case E_LogLevels.Trace:
+                        logger.Trace(LogLevelDefinition.log_levels["Verbose"]);
                         break;
 
                     case E_LogLevels.Debug:
-                        Log.Logger.Debug(LogLevelDefinition.log_levels["Debug"]);
+                        logger.Debug(LogLevelDefinition.log_levels["Debug"]);
                         break;
 
-                    case E_LogLevels.Information:
-                        Log.Logger.Information(LogLevelDefinition.log_levels["Information"]);
+                    case E_LogLevels.Info:
+                        logger.Info(LogLevelDefinition.log_levels["Information"]);
                         break;
 
-                    case E_LogLevels.Warning:
-                        Log.Logger.Warning(LogLevelDefinition.log_levels["Warning"]);
+                    case E_LogLevels.Warn:
+                        logger.Warn(LogLevelDefinition.log_levels["Warning"]);
                         break;
 
                     case E_LogLevels.Error:
-                        Log.Logger.Error(LogLevelDefinition.log_levels["Error"]);
+                        logger.Error(LogLevelDefinition.log_levels["Error"]);
                         break;
 
                     case E_LogLevels.Fatal:
-                        Log.Logger.Fatal(LogLevelDefinition.log_levels["Fatal"]);
+                        logger.Fatal(LogLevelDefinition.log_levels["Fatal"]);
                         break;
 
                     default:
@@ -59,18 +61,18 @@ namespace TestAppWithSerilog.Commands
             }
             else
             {
-                Log.Logger.Error("Log-Level not in Range. Exception: {Exception}", new Exception("Log Level not defined"));
+                logger.Error(new Exception("Log Level not defined"), "Log-Level not in Range. Exception: {Exception}");
             }
         }
     }
 
     public enum E_LogLevels
     {
-        Verbose     = 1,
-        Debug       = 2,
-        Information = 3,
-        Warning     = 4,
-        Error       = 5, 
-        Fatal       = 6
+        Trace  = 1,
+        Debug  = 2,
+        Info   = 3,
+        Warn   = 4,
+        Error  = 5, 
+        Fatal  = 6
     };
 }

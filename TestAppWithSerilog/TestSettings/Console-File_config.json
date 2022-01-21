@@ -23,7 +23,7 @@
               "Name": "File",
               "Args": {
                 "restrictedToMinimumLevel": "Verbose",
-                "path": "C:\\Temp\\TestDocuments\\log.json",
+                "path": "C:\\Temp\\TestDocuments\\Serilog\\log.json",
                 "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
               }
             }

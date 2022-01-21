@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Serilog;
 using Serilog.Sinks.TestCorrelator;
-using System;
 using TestAppWithSerilog.Commands;
 
 namespace TestAppWithSerilog.Tests.Commands.Tests
@@ -25,8 +23,8 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         [TestMethod]
         public void ResultOfTheCalculationIsReliable()
         {
-            algoCommand.Value = 25;
-            algoCommand.Precision = AlgoCommand.CalculatePrecision(5);
+            algoCommand.value = 25;
+            algoCommand.precision = AlgoCommand.CalculatePrecision(5);
 
             var result = algoCommand.RunAlgorithm(false);
 
@@ -36,8 +34,8 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         [TestMethod]
         public void ForTheValue16AndAPrecisionOf3_Exactly14IterationsAreNeeded_Therefor15MessagesAreGenerated()
         {
-            algoCommand.Value = 16;
-            algoCommand.Precision = AlgoCommand.CalculatePrecision(3);
+            algoCommand.value = 16;
+            algoCommand.precision = AlgoCommand.CalculatePrecision(3);
 
             using (TestCorrelator.CreateContext())
             {
@@ -51,8 +49,8 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         [TestMethod]
         public void ForAExtremelyBigNumberAndABigPrecision_TheAlgorithmBreaksAfter_GivenMaximumLoop_AndGeneratesMaximumLoopPlusOneMessages()
         {
-            algoCommand.Value = 5296541235896522145;
-            algoCommand.Precision = AlgoCommand.CalculatePrecision(15);
+            algoCommand.value = 5296541235896522145;
+            algoCommand.precision = AlgoCommand.CalculatePrecision(15);
 
             using (TestCorrelator.CreateContext())
             {
