@@ -30,7 +30,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
-                multipleCommand.number = 30;
+                multipleCommand.number = 10;
                 multipleCommand.time = 1;
 
                 var howLong = multipleCommand.time * 1000;
