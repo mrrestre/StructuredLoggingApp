@@ -16,6 +16,14 @@
         }
       },
       {
+        "Name": "File",
+        "Args": {
+          "path": "C:\\Temp\\TestDocuments\\log.json",
+          "restrictedToMinimumLevel": "Debug",
+          "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+        }
+      },
+      {
         "Name": "Async",
         "Args": {
           "configure": [
@@ -23,7 +31,7 @@
               "Name": "File",
               "Args": {
                 "restrictedToMinimumLevel": "Verbose",
-                "path": "C:\\Temp\\TestDocuments\\log.json",
+                "path": "C:\\Temp\\TestDocuments\\async-log.json",
                 "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
               }
             }
@@ -42,7 +50,16 @@
         "Args": {
           "hostnameOrAddress": "localhost",
           "port": "12201",
-          "transportType": "Udp"
+          "transportType": "Udp",
+          "restrictedToMinimumLevel": "Verbose"
+        }
+      },
+      {
+        "Name": "Elasticsearch",
+        "Args": {
+          "nodeUris": "http://localhost:9200",
+          "indexFormat": "test-app-serilog-{0:yyyy.MM}",
+          "restrictedToMinimumLevel": "Verbose"
         }
       }
     ]

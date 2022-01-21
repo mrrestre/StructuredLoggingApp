@@ -2,7 +2,7 @@
   "Serilog": {
     "Using": [],
     "MinimumLevel": {
-      "Default": "Debug",
+      "Default": "Verbose",
       "Override": {
         "Microsoft": "Warning",
         "System": "Warning"
@@ -19,7 +19,7 @@
                 "path": "C:\\Temp\\TestDocuments\\async-log.json",
                 "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog",
                 "buffered": true,
-                "flushToDiskIntervall": "TimeSpan.FromMilliseconds(1000)",
+                "flushToDiskInterval": "TimeSpan.FromMilliseconds(1000)",
                 "blockWhenFull": true
               }
             }

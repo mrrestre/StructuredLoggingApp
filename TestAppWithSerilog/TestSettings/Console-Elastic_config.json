@@ -1,0 +1,28 @@
+{
+  "Serilog": {
+    "Using": [],
+    "MinimumLevel": {
+      "Default": "Verbose",
+      "Override": {
+        "Microsoft": "Warning",
+        "System": "Warning"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "restrictedToMinimumLevel": "Debug"
+        }
+      },
+      {
+        "Name": "Elasticsearch",
+        "Args": {
+          "nodeUris": "http://localhost:9200",
+          "indexFormat": "test-app-serilog-{0:yyyy.MM}",
+          "restrictedToMinimumLevel": "Verbose"
+        }
+      }
+    ]
+  }
+}

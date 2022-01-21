@@ -1,0 +1,17 @@
+Steps:
+
+1) Open terminal on this folder
+2) run command "docker-compose up -d"
+3) Check that in 2 Docker Containers are running (Elasticsearch, Kibana)
+4) Kibana is found in "http://localhost:5601"
+5) Elasticsearch is found in "http://localhost:9200"
+6) Send one Message from the Application to the Elastic sink/target to create the index
+6) Go to Kibana
+7) On the menu on the left, go to Analytics > Discover
+8) Click "Create index pattern..." on the pop up
+9) Name = test-app-serilog-*
+10) Select @timestamp on the Timestamp field
+11) Create index pattern
+12) By going to Analytics > Discover the index is shown and some messages (at least 4) are there
+
+
