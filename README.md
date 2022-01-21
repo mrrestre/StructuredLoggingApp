@@ -1,6 +1,9 @@
 # Structured Logging App
 ## _Bachelor Thesis project_
 
+![.NET Build](https://github.com/mrrestre/StructuredLoggingApp/actions/workflows/dotnet.yml/badge.svg)
+
+
 The goal of this project is to test out some different technologies (Basically Frameworks) which enable the use of semantic logging on .NET applications.  
 The application is beeing implemented and the result is going to be used to compare the performance and the features from two of  the most used Logging-Frameworks in .NET applications: 
 - [Serilog](https://github.com/serilog/serilog)
