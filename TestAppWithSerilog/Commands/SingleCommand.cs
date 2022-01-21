@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Serilog;
+using System;
 using TestAppWithSerilog.Helpers;
 
 namespace TestAppWithSerilog.Commands
@@ -22,36 +23,43 @@ namespace TestAppWithSerilog.Commands
 
         public void Execute()
         {
-            Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
-
-            switch (LogLevel)
+            if(Enum.IsDefined(typeof(E_LogLevels), LogLevel))
             {
-                case E_LogLevels.Verbose:
-                    Log.Logger.Verbose(LogLevelDefinition.log_levels["Verbose"]);
-                    break;
+                Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
 
-                case E_LogLevels.Debug:
-                    Log.Logger.Debug(LogLevelDefinition.log_levels["Debug"]);
-                    break;
+                switch (LogLevel)
+                {
+                    case E_LogLevels.Verbose:
+                        Log.Logger.Verbose(LogLevelDefinition.log_levels["Verbose"]);
+                        break;
 
-                case E_LogLevels.Information:
-                    Log.Logger.Information(LogLevelDefinition.log_levels["Information"]);
-                    break;
+                    case E_LogLevels.Debug:
+                        Log.Logger.Debug(LogLevelDefinition.log_levels["Debug"]);
+                        break;
 
-                case E_LogLevels.Warning:
-                    Log.Logger.Warning(LogLevelDefinition.log_levels["Warning"]);
-                    break;
+                    case E_LogLevels.Information:
+                        Log.Logger.Information(LogLevelDefinition.log_levels["Information"]);
+                        break;
 
-                case E_LogLevels.Error:
-                    Log.Logger.Error(LogLevelDefinition.log_levels["Error"]);
-                    break;
+                    case E_LogLevels.Warning:
+                        Log.Logger.Warning(LogLevelDefinition.log_levels["Warning"]);
+                        break;
 
-                case E_LogLevels.Fatal:
-                    Log.Logger.Fatal(LogLevelDefinition.log_levels["Fatal"]);
-                    break;
+                    case E_LogLevels.Error:
+                        Log.Logger.Error(LogLevelDefinition.log_levels["Error"]);
+                        break;
 
-                default:
-                    break;
+                    case E_LogLevels.Fatal:
+                        Log.Logger.Fatal(LogLevelDefinition.log_levels["Fatal"]);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Log.Logger.Error("Log-Level not in Range. Exception: {Exception}", new Exception("Log Level not defined"));
             }
         }
     }

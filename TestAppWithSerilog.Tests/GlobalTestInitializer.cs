@@ -9,7 +9,11 @@ namespace TestAppWithSerilog.Tests
         [AssemblyInitialize()]
         public static void ConfigureGlobalLogger(TestContext testContext)
         {
-            Log.Logger = new LoggerConfiguration().WriteTo.TestCorrelator().CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.TestCorrelator()
+                .WriteTo.Console()
+                .MinimumLevel.Verbose()
+                .CreateLogger();
         }
 
         [AssemblyCleanup]

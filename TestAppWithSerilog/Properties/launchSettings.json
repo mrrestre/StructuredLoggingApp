@@ -53,7 +53,7 @@
     },
     "TestAppWithSerilog_Algo_WithEasyOptions": {
       "commandName": "Project",
-      "commandLineArgs": "algo -v 49 -p 9"
+      "commandLineArgs": "algo -v 49 -p 5"
     },
     "TestAppWithSerilog_Algo_WithOptions": {
       "commandName": "Project",

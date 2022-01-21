@@ -8,7 +8,7 @@ namespace TestAppWithSerilog.Commands
     [Verb("algo", HelpText = "Run an iterative algorithm (Square Root Calculation) with and without logging to compare the needed time")]
     public class AlgoCommand
     {
-        private const int maximumLoops = 100000;
+        public const int maximumLoops = 100000;
 
         [Option('v', "value",
             Required = false,
@@ -42,7 +42,7 @@ namespace TestAppWithSerilog.Commands
             Stopwatch sw = new();
             sw.Start();
 
-            int counter = 1;
+            int counter = 0;
 
             double low = 0;
             double high = Value;
@@ -64,15 +64,17 @@ namespace TestAppWithSerilog.Commands
                     high = mid;
                 }
 
-                counter++;
 
                 if (loggingEnabled)
                 {
                     Log.Logger.Verbose("Algorith running, currently on iteration: {Iteration}", counter);
                 }
 
+
+                counter++;
+
                 //Avoid infinite loops
-                if(counter >= maximumLoops)
+                if (counter >= maximumLoops)
                 {
                     break;
                 }

@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Serilog;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -33,33 +34,45 @@ namespace TestAppWithSerilog.Commands
 
         public void Execute()
         {
-            Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
-            
-            var howLong = Time * 1000;
-
-            switch (TestKind)
+            if (Enum.IsDefined(typeof(E_TestKinds), TestKind))
             {
-                case E_TestKinds.TimerVariant:
-                    var howLongBetweenLogs = (Time * 1000) / Number;
-                    
-                    var intervallTimer = new Timer(howLongBetweenLogs);
-                    var taskDelay = SendLogs_TimerVariant(howLong, intervallTimer);
+                Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
 
-                    Task.WaitAll(taskDelay);
+                var howLong = Time * 1000;
 
-                    intervallTimer.Stop();
-                    intervallTimer.Dispose();
-                    break;
+                switch (TestKind)
+                {
+                    case E_TestKinds.TimerVariant:
+                        CallSendLogs_TimerVariant(howLong);
+                        break;
 
-                case E_TestKinds.MaxMessagesInTime:
-                    SendLogs_MaxMessagesInTime(howLong);
-                    break;
+                    case E_TestKinds.MaxMessagesInTime:
+                        SendLogs_MaxMessagesInTime(howLong);
+                        break;
 
-                case E_TestKinds.TimeForMessages:
-                    SendLogs_TimeForMessages(Number);
-                    break;
+                    case E_TestKinds.TimeForMessages:
+                        SendLogs_TimeForMessages(Number);
+                        break;
 
+                }
             }
+            else
+            {
+                Log.Logger.Error("Kind of test not Valid. Exception: {Exception}", new Exception("Kind of Test not defined"));
+            }
+        }
+
+        public void CallSendLogs_TimerVariant(int howLong)
+        {
+            var howLongBetweenLogs = (Time * 1000) / Number;
+
+            var intervallTimer = new Timer(howLongBetweenLogs);
+            var taskDelay = SendLogs_TimerVariant(howLong, intervallTimer);
+
+            Task.WaitAll(taskDelay);
+
+            intervallTimer.Stop();
+            intervallTimer.Dispose();
         }
 
         private async Task SendLogs_TimerVariant(int howLong, Timer intervallTimer)
@@ -80,7 +93,7 @@ namespace TestAppWithSerilog.Commands
             await Task.Delay(howLong);
         }
 
-        private static void SendLogs_MaxMessagesInTime(int howLong)
+        public static int SendLogs_MaxMessagesInTime(int howLong)
         {
             int counter = 0;
             Stopwatch sw = new();
@@ -95,9 +108,11 @@ namespace TestAppWithSerilog.Commands
             Log.Logger.Information("Managed to send {NumberOfMessages} messages in {Time} milliseconds", counter, howLong);
 
             sw.Stop();
+
+            return counter;
         }
 
-        private static void SendLogs_TimeForMessages(int howMany)
+        public static void SendLogs_TimeForMessages(int howMany)
         {
             Stopwatch sw = new();
             sw.Start();

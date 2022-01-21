@@ -8,25 +8,25 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
     [TestClass]
     public class SingleCommandTests
     {
-        private SingleCommand _testSingleCommand = new()
+        private readonly SingleCommand _testSingleCommand = new()
         {
             LogLevel = E_LogLevels.Information
         };
 
         [TestMethod]
-        public void ByCallingExecuteFunction_ExactlyOneLog_IsGenerated()
+        public void ByCallingExecuteFunction_ExactlyTwoLogs_AreGenerated()
         {
             using (TestCorrelator.CreateContext())
             {
                 _testSingleCommand.Execute();
 
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().ContainSingle();
+                    .Should().HaveCount(2);
             }
         }
 
         [TestMethod]
-        public void IfTheLogLevelIsNotPossible_NoLogEventsAreGenerated()
+        public void IfTheLogLevelIsNotPossible_OneLogIsGenereated_WithErrorLevelAndAnException()
         {
             using (TestCorrelator.CreateContext())
             {
@@ -35,7 +35,8 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
                 _testSingleCommand.Execute();
 
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().BeEmpty();
+                    .Should().ContainSingle()
+                    .Which.Level.Should().Be(Serilog.Events.LogEventLevel.Error);
             }
         }
     }

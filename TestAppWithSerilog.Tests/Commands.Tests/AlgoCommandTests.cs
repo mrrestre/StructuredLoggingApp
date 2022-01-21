@@ -10,7 +10,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
     [TestClass]
     public class AlgoCommandTests
     {
-        private AlgoCommand algoCommand = new();
+        private readonly AlgoCommand algoCommand = new();
 
         [TestMethod]
         public void PrecisionIsCalculatedRight()
@@ -34,20 +34,33 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void WithAQuadraticNumber_ExactlyOneIterationIsNeeded_AndOneMessageLogGenerated()
+        public void ForTheValue16AndAPrecisionOf3_Exactly14IterationsAreNeeded_Therefor15MessagesAreGenerated()
         {
-            algoCommand.Value = 49;
-            algoCommand.Precision = AlgoCommand.CalculatePrecision(5);
+            algoCommand.Value = 16;
+            algoCommand.Precision = AlgoCommand.CalculatePrecision(3);
 
             using (TestCorrelator.CreateContext())
             {
                 algoCommand.RunAlgorithm(true);
 
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(1);
+                    .Should().HaveCount(15);
             }
         }
 
-        
+        [TestMethod]
+        public void ForAExtremelyBigNumberAndABigPrecision_TheAlgorithmBreaksAfter_GivenMaximumLoop_AndGeneratesMaximumLoopPlusOneMessages()
+        {
+            algoCommand.Value = 5296541235896522145;
+            algoCommand.Precision = AlgoCommand.CalculatePrecision(15);
+
+            using (TestCorrelator.CreateContext())
+            {
+                algoCommand.RunAlgorithm(true);
+
+                TestCorrelator.GetLogEventsFromCurrentContext()
+                    .Should().HaveCount(AlgoCommand.maximumLoops + 1);
+            }
+        }
     }
 }
