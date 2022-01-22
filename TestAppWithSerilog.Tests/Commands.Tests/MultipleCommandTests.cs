@@ -15,10 +15,13 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
+                // Given
                 multipleCommand.testKind = (E_TestKinds)4;
 
+                // Calculate
                 multipleCommand.Execute();
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
                     .Should().ContainSingle()
                     .Which.Level.Should().Be(Serilog.Events.LogEventLevel.Error);
@@ -30,29 +33,34 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
+                // Given
                 multipleCommand.number = 10;
                 multipleCommand.time = 1;
-
                 var howLong = multipleCommand.time * 1000;
 
+                // Calculate
                 multipleCommand.CallSendLogs_TimerVariant(howLong);
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
                     .Should().HaveCount(multipleCommand.number);
             }
         }
 
         [TestMethod]
-        public void ForARunWithMaxMessageKing_NumberOfIterationsReflectsOnNumberOfLogsCreatedMinusOne()
+        public void ForARunWithMaxMessageKind_NumberOfIterationsReflectsOnNumberOfLogsCreated()
         {
             using (TestCorrelator.CreateContext())
             {
+                // Given
                 int timeInMilliseconds = 100;
 
+                // Calculate
                 var numberOfMessages = MultipleCommand.SendLogs_MaxMessagesInTime(timeInMilliseconds);
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(numberOfMessages + 1);
+                    .Should().HaveCount(numberOfMessages);
             }
         }
 
@@ -61,14 +69,16 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         {
             using (TestCorrelator.CreateContext())
             {
+                // Given
                 int howManyMessages = 100;
 
+                // Calculate
                 MultipleCommand.SendLogs_TimeForMessages(howManyMessages);
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(howManyMessages + 1);
+                    .Should().HaveCount(howManyMessages);
             }
         }
-
     }
 }

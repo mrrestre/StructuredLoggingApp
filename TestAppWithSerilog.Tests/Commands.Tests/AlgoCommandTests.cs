@@ -13,51 +13,63 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         [TestMethod]
         public void PrecisionIsCalculatedRight()
         {
+            // Given
             double exponent = 5;
 
+            // Calculate
             double precision = AlgoCommand.CalculatePrecision(exponent);
 
-            Assert.AreEqual(precision, 1E-05);
+            // Ensure
+            Assert.AreEqual(expected: 1E-05, actual: precision);
         }
 
         [TestMethod]
         public void ResultOfTheCalculationIsReliable()
         {
+            // Given
             algoCommand.value = 25;
             algoCommand.precision = AlgoCommand.CalculatePrecision(5);
 
-            var result = algoCommand.RunAlgorithm(false);
+            // Calculate
+            var resultStruct = AlgoCommand.RunAlgorithm(false, algoCommand.value, algoCommand.precision);
 
-            Assert.AreEqual(result, 5);
+            // Ensure
+            Assert.AreEqual(expected: resultStruct.result, actual: 5);
         }
 
         [TestMethod]
-        public void ForTheValue16AndAPrecisionOf3_Exactly14IterationsAreNeeded_Therefor15MessagesAreGenerated()
+        public void ForTheValue16AndAPrecisionOf3_Exactly14IterationsAreNeeded_Therefor14MessagesAreGenerated()
         {
+            // Given
             algoCommand.value = 16;
             algoCommand.precision = AlgoCommand.CalculatePrecision(3);
 
             using (TestCorrelator.CreateContext())
             {
-                algoCommand.RunAlgorithm(true);
+                // Calculate
+                AlgoCommand.RunAlgorithm(true, algoCommand.value, algoCommand.precision);
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(15);
+                    .Should().HaveCount(14);
             }
         }
 
         [TestMethod]
-        public void ForAExtremelyBigNumberAndABigPrecision_TheAlgorithmBreaksAfter_GivenMaximumLoop_AndGeneratesMaximumLoopPlusOneMessages()
+        public void ForAExtremelyBigNumberAndABigPrecision_TheAlgorithmBreaksAfter_GivenMaximumLoop_AndGeneratesMaximumLoopMessages()
         {
+            // Given
             algoCommand.value = 5296541235896522145;
             algoCommand.precision = AlgoCommand.CalculatePrecision(15);
 
             using (TestCorrelator.CreateContext())
             {
-                algoCommand.RunAlgorithm(true);
+                // Calculate
+                AlgoCommand.RunAlgorithm(true, algoCommand.value, algoCommand.precision);
 
+                // Ensure
                 TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(AlgoCommand.maximumLoops + 1);
+                    .Should().HaveCount(AlgoCommand.maximumLoops);
             }
         }
     }

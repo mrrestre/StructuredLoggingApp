@@ -1,7 +1,6 @@
 TODOs:
 
 SerilogApp:
-	- Add Comments to Methods and classes (is something like JavaDoc possible?)
 	- (Maybe) Play with sinks to find a better performance
 
 NLogApp:

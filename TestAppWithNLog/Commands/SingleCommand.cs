@@ -10,10 +10,10 @@ namespace TestAppWithNLog.Commands
     {
         private static ILogger logger = LogManager.GetLogger(typeof(SingleCommand).FullName);
 
-        [Option('l', "level", 
-            Default = (E_LogLevels)3, 
-            Required = false, 
-            HelpText =  "Creates a log event with a given Log-Level\n" +
+        [Option('l', "level",
+            Default = (E_LogLevels)3,
+            Required = false,
+            HelpText = "Creates a log event with a given Log-Level\n" +
                         "1 --> Verbose\n" +
                         "2 --> Debug\n" +
                         "3 --> Information\n" +
@@ -22,10 +22,9 @@ namespace TestAppWithNLog.Commands
                         "6 --> Fatal\n")]
         public E_LogLevels logLevel { get; set; }
 
-
         public void Execute()
         {
-            if(Enum.IsDefined(typeof(E_LogLevels), logLevel))
+            if (Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
                 logger.Debug("Choosen configurations: {@Configurations}", this);
 
@@ -68,11 +67,11 @@ namespace TestAppWithNLog.Commands
 
     public enum E_LogLevels
     {
-        Trace  = 1,
-        Debug  = 2,
-        Info   = 3,
-        Warn   = 4,
-        Error  = 5, 
-        Fatal  = 6
+        Trace = 1,
+        Debug = 2,
+        Info = 3,
+        Warn = 4,
+        Error = 5,
+        Fatal = 6
     };
 }

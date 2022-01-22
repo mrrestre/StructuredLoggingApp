@@ -2,9 +2,9 @@
 
 namespace TestAppWithSerilog.Helpers
 {
-    static class LogLevelDefinition
+    internal static class LogLevelDefinition
     {
-        static public Dictionary<string, string> log_levels = new Dictionary<string, string>()
+        public static Dictionary<string, string> log_levels = new Dictionary<string, string>()
         {
             { "Verbose",    "Verbose is the noisiest level, rarely (if ever) enabled for a production app." },
             { "Debug",      "Debug is used for internal system events that are not necessarily observable from the outside, but useful when determining how something happened." },

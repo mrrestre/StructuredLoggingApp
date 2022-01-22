@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace TestAppWithSerilog.Enrichers
 {
-    class ProcessAndThreadEnricher : ILogEventEnricher
+    internal class ProcessAndThreadEnricher : ILogEventEnricher
     {
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {

@@ -8,10 +8,10 @@ namespace TestAppWithSerilog.Commands
     [Verb("single", HelpText = "Create a single log and send it to defined Sinks")]
     public class SingleCommand
     {
-        [Option('l', "level", 
-            Default = (E_LogLevels)3, 
-            Required = false, 
-            HelpText =  "Creates a log event with a given Log-Level\n" +
+        [Option('l', "level",
+            Default = (E_LogLevels)3,
+            Required = false,
+            HelpText = "Creates a log event with a given Log-Level\n" +
                         "1 --> Verbose\n" +
                         "2 --> Debug\n" +
                         "3 --> Information\n" +
@@ -20,12 +20,13 @@ namespace TestAppWithSerilog.Commands
                         "6 --> Fatal\n")]
         public E_LogLevels logLevel { get; set; }
 
-
         public void Execute()
         {
-            if(Enum.IsDefined(typeof(E_LogLevels), logLevel))
+            // Ensure that the value given in the parameter is valid log level
+            if (Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
-                Log.Logger.Debug("Choosen configurations: {@Configurations}", this);
+                // It is a good practice to log an Object as a whole before procedure that may go wrong. The logger generates a json from all the parameters
+                Log.Logger.Debug("Chosen configurations: {@Configurations}", this);
 
                 switch (logLevel)
                 {
@@ -66,11 +67,11 @@ namespace TestAppWithSerilog.Commands
 
     public enum E_LogLevels
     {
-        Verbose     = 1,
-        Debug       = 2,
+        Verbose = 1,
+        Debug = 2,
         Information = 3,
-        Warning     = 4,
-        Error       = 5, 
-        Fatal       = 6
+        Warning = 4,
+        Error = 5,
+        Fatal = 6
     };
 }

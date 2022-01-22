@@ -1,7 +1,6 @@
 ﻿using CommandLine;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Sinks.Graylog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,17 +11,23 @@ using TestAppWithSerilog.Enrichers;
 
 namespace TestAppWithSerilog
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
+                // Needed configuration to read from appsettings.json (Not standard in console apps)
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                     .AddEnvironmentVariables();
 
+                /*
+                 * Logger configuration
+                 * Notice that the sinks could be defined as well at this point instead from redden from json file
+                 * At this point any number of enricher (Either default or personalized) can be added.
+                 */
                 Log.Logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(builder.Build())
                     .Enrich.With(new ProcessAndThreadEnricher())
@@ -30,13 +35,13 @@ namespace TestAppWithSerilog
                     .CreateLogger();
 
                 Log.Debug("Application starting up");
-                
+
+                // Definition of the command line parser. It takes care of handling the arguments and options and calling the right functions
                 Parser.Default.ParseArguments<SingleCommand, MultipleCommand, AlgoCommand>(args)
                     .WithParsed<SingleCommand>(t => t.Execute())
                     .WithParsed<MultipleCommand>(t => t.Execute())
                     .WithParsed<AlgoCommand>(t => t.Execute())
                     .WithNotParsed(HandleParseError);
-                
             }
             catch (Exception ex)
             {

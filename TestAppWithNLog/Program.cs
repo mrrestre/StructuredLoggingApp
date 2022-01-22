@@ -9,11 +9,11 @@ using TestAppWithNLog.Commands;
 
 namespace TestAppWithNLog
 {
-    class Program
+    internal class Program
     {
         private static ILogger logger;
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             LogManager.Configuration = new XmlLoggingConfiguration("nlog.config");
 
@@ -28,7 +28,6 @@ namespace TestAppWithNLog
                     .WithParsed<MultipleCommand>(t => t.Execute())
                     .WithParsed<AlgoCommand>(t => t.Execute())
                     .WithNotParsed(HandleParseError);
-
             }
             catch (Exception ex)
             {
@@ -38,7 +37,7 @@ namespace TestAppWithNLog
             {
                 logger.Debug("Application shutting down");
                 logger.Factory.Flush();
-            }            
+            }
         }
 
         private static void HandleParseError(IEnumerable<Error> errs)

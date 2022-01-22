@@ -19,7 +19,7 @@ namespace TestAppWithSerilog.Tests
         [AssemblyCleanup]
         public static void TearDown()
         {
-            // The test framework will call this method once -AFTER- each test run.
+            Log.CloseAndFlush();
         }
     }
 }

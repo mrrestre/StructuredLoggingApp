@@ -4,7 +4,7 @@ using System;
 
 namespace TestAppWithSerilog.Enrichers
 {
-    class UserEnricher : ILogEventEnricher
+    internal class UserEnricher : ILogEventEnricher
     {
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
