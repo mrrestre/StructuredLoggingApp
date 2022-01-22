@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWithSerilog", "TestA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWithSerilog.Tests", "TestAppWithSerilog.Tests\TestAppWithSerilog.Tests.csproj", "{7F04FA74-D5C4-4E55-B9AF-A7C9599F3161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppWithNLog", "TestAppWithNLog\TestAppWithNLog.csproj", "{E2BAE49D-9430-4201-AA9E-B59FF87F939F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAppWithNLog", "TestAppWithNLog\TestAppWithNLog.csproj", "{E2BAE49D-9430-4201-AA9E-B59FF87F939F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NLog", "NLog", "{6599F3AD-90D2-45F3-BFFB-ACBD8C1D9B77}"
 EndProject

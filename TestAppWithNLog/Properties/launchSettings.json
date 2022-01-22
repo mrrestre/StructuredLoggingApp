@@ -32,7 +32,7 @@
     },
     "TestAppWithNLog_Multiple_Test1": {
       "commandName": "Project",
-      "commandLineArgs": "multiple -n 10 -t 1 -k 1"
+      "commandLineArgs": "multiple -n 100 -t 1 -k 1"
     },
     "TestAppWithNLog_Multiple_Test2": {
       "commandName": "Project",

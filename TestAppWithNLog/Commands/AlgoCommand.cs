@@ -15,7 +15,7 @@ namespace TestAppWithNLog.Commands
 
         [Option('v', "value",
             Required = false,
-            Default = (double)4133,             //Prime number to make the calculation a little harder
+            Default = (double)4133,             
             HelpText = "The value from which the square root should be calculated")]
         public double value { get; set; }
 

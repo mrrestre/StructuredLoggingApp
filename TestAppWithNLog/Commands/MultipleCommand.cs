@@ -73,7 +73,7 @@ namespace TestAppWithNLog.Commands
         public void CallSendLogs_TimerVariant(int howLong)
         {
             // Calculate how many millisecond should elapse between two logs
-            var howLongBetweenLogs = (time * 1000) / number;
+            double howLongBetweenLogs = (time * 1000) / number;
 
             // Create timer that lasts for the just calculated interval
             var intervallTimer = new Timer(howLongBetweenLogs);
