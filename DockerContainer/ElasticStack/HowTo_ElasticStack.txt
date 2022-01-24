@@ -9,7 +9,7 @@ Steps:
 6) Go to Kibana
 7) On the menu on the left, go to Analytics > Discover
 8) Click "Create index pattern..." on the pop up
-9) Name = test-app-serilog-*
+9) Name = test-app-serilog-* / test-app-nlog-* 
 10) Select @timestamp on the Timestamp field
 11) Create index pattern
 12) By going to Analytics > Discover the index is shown and some messages (at least 4) are there

@@ -4,9 +4,8 @@ services:
   # MongoDB: https://hub.docker.com/_/mongo/
   mongodb:
     image: mongo:4.2
-  # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/7.10/docker.html
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.16.3
+    image: elasticsearch:7.16.3
     environment:
       - http.host=0.0.0.0
       - transport.host=localhost

@@ -26,12 +26,12 @@ namespace TestAppWithNLog.Commands
         {
             if (Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
-                logger.Debug("Choosen configurations: {@Configurations}", this);
+                logger.Debug("Chosen configurations: {@Configurations}", this);
 
                 switch (logLevel)
                 {
                     case E_LogLevels.Trace:
-                        logger.Trace(LogLevelDefinition.log_levels["Verbose"]);
+                        logger.Trace(LogLevelDefinition.log_levels["Trace"]);
                         break;
 
                     case E_LogLevels.Debug:
@@ -39,7 +39,7 @@ namespace TestAppWithNLog.Commands
                         break;
 
                     case E_LogLevels.Info:
-                        logger.Info(LogLevelDefinition.log_levels["Information"]);
+                        logger.Info(LogLevelDefinition.log_levels["Info"]);
                         break;
 
                     case E_LogLevels.Warn:

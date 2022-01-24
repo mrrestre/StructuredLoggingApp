@@ -8,6 +8,6 @@ Steps:
 6) Go to system > inputs
 7) Add input "GELF" UDP
 8) Be sure the Port is set to 12201
-9) Be sure that "Graylog" is the sinks defined in appsettings.json
+9) Be sure that "Graylog" is the sink / target defined in appsettings.json or the nlog.config
 10) New messages from the app should be there
 

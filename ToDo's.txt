@@ -5,9 +5,6 @@ SerilogApp:
 
 NLogApp:
 	- Create UnitTest for project
-	- Messages sent to Seq
-	- Messages sent to Graylog
-	- Messages sent to Elastic
 	- (Maybe) Play with sinks to find a better performance
 	
 Others:

@@ -32,6 +32,7 @@ namespace TestAppWithSerilog
                     .ReadFrom.Configuration(builder.Build())
                     .Enrich.With(new ProcessAndThreadEnricher())
                     .Enrich.With(new UserEnricher())
+                    .Enrich.With(new EnviromentEnricher())
                     .CreateLogger();
 
                 Log.Debug("Application starting up");
