@@ -8,7 +8,7 @@ namespace TestAppWithNLog.Commands
     [Verb("single", HelpText = "Create a single log and send it to defined Sinks")]
     public class SingleCommand
     {
-        private static ILogger logger = LogManager.GetLogger(typeof(SingleCommand).FullName);
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
 
         [Option('l', "level",
             Default = (E_LogLevels)3,

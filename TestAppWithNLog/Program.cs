@@ -17,7 +17,7 @@ namespace TestAppWithNLog
         {
             LogManager.Configuration = new XmlLoggingConfiguration("nlog.config");
 
-            logger = LogManager.GetLogger(typeof(Program).FullName);
+            logger = LogManager.GetCurrentClassLogger();
 
             try
             {

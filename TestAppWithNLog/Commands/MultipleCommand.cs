@@ -10,7 +10,7 @@ namespace TestAppWithNLog.Commands
     [Verb("multiple", HelpText = "Generate multiple logs and send the to the defined Sinks")]
     public class MultipleCommand
     {
-        private static ILogger logger = LogManager.GetLogger(typeof(MultipleCommand).FullName);
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
 
         [Option('n', "number",
             Required = false,

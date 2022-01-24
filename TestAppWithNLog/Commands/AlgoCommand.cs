@@ -8,7 +8,7 @@ namespace TestAppWithNLog.Commands
     [Verb("algo", HelpText = "Run an iterative algorithm (Square Root Calculation) with and without logging to compare the needed time")]
     public class AlgoCommand
     {
-        private static ILogger logger = LogManager.GetLogger(typeof(AlgoCommand).FullName);
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
 
         // Constant to prevent infinite loops in case that the algorithm needs to many operations
         public const int maximumLoops = 100000;
