@@ -35,7 +35,7 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
             {
                 // Given
                 multipleCommand.number = 10;
-                multipleCommand.time = 5;
+                multipleCommand.time = 10;
                 var howLong = multipleCommand.time * 1000;
 
                 // Calculate
