@@ -29,25 +29,6 @@ namespace TestAppWithSerilog.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void ForARunWithTimerVariant_GivenNumberOfLogMessages_AreCreated()
-        {
-            using (TestCorrelator.CreateContext())
-            {
-                // Given
-                multipleCommand.number = 10;
-                multipleCommand.time = 10;
-                var howLong = multipleCommand.time * 1000;
-
-                // Calculate
-                multipleCommand.CallSendLogs_TimerVariant(howLong);
-
-                // Ensure
-                TestCorrelator.GetLogEventsFromCurrentContext()
-                    .Should().HaveCount(multipleCommand.number);
-            }
-        }
-
-        [TestMethod]
         public void ForARunWithMaxMessageKind_NumberOfIterationsReflectsOnNumberOfLogsCreated()
         {
             using (TestCorrelator.CreateContext())
