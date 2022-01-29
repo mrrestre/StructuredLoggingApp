@@ -8,6 +8,10 @@
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
+    "TestAppWithNLog_WrongCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "wrong"
+    },
 
     "TestAppWithNLog_Single_NoOptions": {
       "commandName": "Project",

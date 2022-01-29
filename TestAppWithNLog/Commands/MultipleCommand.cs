@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
+using TestAppWithNLog.PatternLibrary;
 
 namespace TestAppWithNLog.Commands
 {
@@ -39,7 +40,7 @@ namespace TestAppWithNLog.Commands
             if (Enum.IsDefined(typeof(E_TestKinds), testKind))
             {
                 // It is a good practice to log an Object as a whole before procedure that may go wrong. The logger generates a json from all the parameters
-                logger.Debug("Chosen configurations: {@Configurations}", this);
+                LogPatternConfiguration.LogConfiguration(this, logger);
 
                 // Transform second into milliseconds
                 var howLong = time * 1000;

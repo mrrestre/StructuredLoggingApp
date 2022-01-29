@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using TestAppWithNLog.Commands;
+using TestAppWithNLog.PatternLibrary;
 
 namespace TestAppWithNLog
 {
@@ -31,7 +32,7 @@ namespace TestAppWithNLog
             }
             catch (Exception ex)
             {
-                logger.Fatal(ex, "Application failed to start correctly. Exception trace: {Exception}");
+                LogPatternExeption.LogStartUpException(ex, logger);
             }
             finally
             {
@@ -57,7 +58,7 @@ namespace TestAppWithNLog
                 return;
             }
 
-            logger.Error("Parser could not parse arguments correctly, Exception: {Exception}", errs.GetEnumerator().ToString());
+            LogPatternExeption.LogParsingException(errs, logger);
         }
     }
 }

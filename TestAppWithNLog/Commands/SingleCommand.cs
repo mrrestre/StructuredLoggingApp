@@ -2,6 +2,7 @@
 using NLog;
 using System;
 using TestAppWithNLog.Helpers;
+using TestAppWithNLog.PatternLibrary;
 
 namespace TestAppWithNLog.Commands
 {
@@ -26,7 +27,7 @@ namespace TestAppWithNLog.Commands
         {
             if (Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
-                logger.Debug("Chosen configurations: {@Configurations}", this);
+                LogPatternConfiguration.LogConfiguration(this, logger);
 
                 switch (logLevel)
                 {

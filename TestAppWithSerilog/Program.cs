@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using TestAppWithSerilog.Commands;
 using TestAppWithSerilog.Enrichers;
+using TestAppWithSerilog.PatternLibrary;
 
 namespace TestAppWithSerilog
 {
@@ -46,7 +47,7 @@ namespace TestAppWithSerilog
             }
             catch (Exception ex)
             {
-                Log.Fatal("Application failed to start correctly. Exception trace: {Exception}", ex);
+                LogPatternExeption.LogStartUpException(ex);
             }
             finally
             {
@@ -72,7 +73,7 @@ namespace TestAppWithSerilog
                 return;
             }
 
-            Log.Error("Parser could not parse arguments correctly, Exception: {Exception}", errs.GetEnumerator().ToString());
+            LogPatternExeption.LogParsingException(errs);
         }
     }
 }

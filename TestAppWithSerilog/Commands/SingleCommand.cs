@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using TestAppWithSerilog.Helpers;
+using TestAppWithSerilog.PatternLibrary;
 
 namespace TestAppWithSerilog.Commands
 {
@@ -26,7 +27,7 @@ namespace TestAppWithSerilog.Commands
             if (Enum.IsDefined(typeof(E_LogLevels), logLevel))
             {
                 // It is a good practice to log an Object as a whole before procedure that may go wrong. The logger generates a json from all the parameters
-                Log.Logger.Debug("Chosen configurations: {@Configurations}", this);
+                LogPatternConfiguration.LogConfiguration(this);
 
                 switch (logLevel)
                 {

@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Diagnostics;
+using TestAppWithSerilog.PatternLibrary;
 
 namespace TestAppWithSerilog.Commands
 {
@@ -30,7 +31,7 @@ namespace TestAppWithSerilog.Commands
             precision = CalculatePrecision(precision);
 
             // It is a good practice to log an Object as a whole before procedure that may go wrong. The logger generates a json from all the parameters
-            Log.Logger.Debug("Chosen configurations: {@Configurations}", this);
+            LogPatternConfiguration.LogConfiguration(this);
 
             // The algorithm is run twice. Once with internal logging and once without
             S_AlgorithmResults algoWithLogs     = RunAlgorithm(true, value, precision);

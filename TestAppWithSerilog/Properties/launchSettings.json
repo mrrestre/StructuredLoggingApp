@@ -8,6 +8,10 @@
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
+    "TestAppWithSerilog_WrongCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "wrong"
+    },
 
     "TestAppWithSerilog_Single_NoOptions": {
       "commandName": "Project",
